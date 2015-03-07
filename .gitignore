@@ -24,3 +24,12 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+# Eclipse specific files #
+##########################
+.project
+.project~
+.buildpath
+.buildpath~
+.settings/

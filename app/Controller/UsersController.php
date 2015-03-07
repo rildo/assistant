@@ -58,13 +58,15 @@ class UsersController extends AppController {
 	 * @return void
 	 */
 	public function add() {
+		$this->set('title_for_layout', 'Administration - ajouter un utilisateur');
 		if ($this->request->is('post')) {
 			$this->User->create();
+			$this->request->data['User']['password'] = $this->passwordGenerator(10);
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'),'notif');
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('L\'utilisateur a bien été sauvegardé.<br />Le mot de passe de l\'utilisateur est : <b>'.$this->request->data['User']['password'].'</b>'),'notif');
+				return $this->redirect($this->referer());
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'),'notif');
+				$this->Session->setFlash(__('L\'utilisateur n\'a pas été sauvegardé, veuillez réessayer.'), 'notif', array('type' => 'danger'));
 			}
 		}
 		$userAsOneGroups = $this->User->UserAsOneGroup->find('list');
@@ -107,15 +109,15 @@ class UsersController extends AppController {
 	public function delete($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
+			throw new NotFoundException(__('Utilisateur inconnu'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->User->delete()) {
-			$this->Session->setFlash(__('The user has been deleted.'),'notif');
+			$this->Session->setFlash(__('L\'utilisateur a été supprimé.'), 'notif');
 		} else {
-			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'),'notif');
+			$this->Session->setFlash(__('L\'utilisateur n\'a pas été supprimé, veuillez réessayer.'), 'notif', array('type' => 'danger'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect($this->referer());
 	}
 	
 	

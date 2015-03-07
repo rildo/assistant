@@ -85,7 +85,7 @@ class User extends AppModel {
 	 * @var array
 	 */
 	public $belongsTo = array(
-		'user_as_one_group' => array(
+		'UserAsOneGroup' => array(
 			'className' => 'Group',
 			'foreignKey' => 'id',
 			'conditions' => '',
@@ -108,22 +108,5 @@ class User extends AppModel {
 			$this->data['User']['email'] = strtolower($this->data['User']['email']);
 		}
 		return true;
-	}
-
-	/**
-	 * Check if password and his verification are the same
-	 *
-	 * @param array $data
-	 * @param array $params
-	 * @return boolean
-	 */
-	public function checkMatchPasswd ($data, $params = array()) {
-		if (empty($this->data['User']['password']) && empty($data['check'])) {
-			return true;
-		} elseif (strcmp($this->data['User']['password'], $data['check']) === 0) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
