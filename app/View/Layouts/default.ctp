@@ -89,7 +89,7 @@
 								<li class="divider"></li>
 								<?php if ($userGroup==1): ?>
 									<li class="title">Administration</li>
-									<li><?= $this->Html->link("Utilisateurs", array('prefix' => 'admin','controller' => 'users', 'action' => 'index')); ?></li>
+									<li><?= $this->Html->link("Utilisateurs", array('admin' => true,'controller' => 'users', 'action' => 'index')); ?></li>
 									<li class="divider"></li>
 								<?php endif; ?>
 								<li>
