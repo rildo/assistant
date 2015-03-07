@@ -1,23 +1,25 @@
 <div class="groups form">
-<?php echo $this->Form->create('Group'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Group'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('start_date');
-		echo $this->Form->input('end_date');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Group.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Group.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Groups'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Group As As Many Users'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<h2>
+		<?php echo __('Modifier le groupe : '.$this->Form->value('Group.name')); ?>
+		<div class="action-space">
+			<?php echo $this->Html->link('Liste des groupes',array('controller' => 'groups', 'action' => 'index'),array('class' => 'button')); ?>
+		</div>
+	</h2>
+	<div class="sub-content">
+		<?php
+			echo $this->Form->create('Group');echo $this->Form->input('id');
+			echo $this->Form->input(
+				'name',
+				array(
+					'label' => 'Libellé',
+					'placeholder' => 'Ex: Utilisateurs'
+			));
+			echo $this->Form->button(
+				'Modifier',
+				array(
+					'class' => 'button-primary'
+			));
+			echo $this->Form->end();
+		?>
+	</div>
 </div>
