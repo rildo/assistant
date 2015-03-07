@@ -31,7 +31,7 @@ class GroupsController extends AppController {
 	 *
 	 * @return void
 	 */
-	public function index() {
+	public function admin_index() {
 		$this->set('title_for_layout', 'Administration - groupes');
 		$this->Paginator->settings = $this->paginate;
 		$this->Group->recursive = 0;
@@ -59,7 +59,7 @@ class GroupsController extends AppController {
 	 *
 	 * @return void
 	 */
-	public function add() {
+	public function admin_add() {
 		$this->set('title_for_layout', 'Administration - ajouter un groupe');
 		if ($this->request->is('post')) {
 			$this->Group->create();
@@ -79,7 +79,7 @@ class GroupsController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->set('title_for_layout', 'Administration - modifier un groupe');
 		if (!$this->Group->exists($id)) {
 			throw new NotFoundException(__('Groupe inconnu'));
@@ -104,7 +104,7 @@ class GroupsController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->Group->id = $id;
 		if (!$this->Group->exists()) {
 			throw new NotFoundException(__('Groupe inconnu'));

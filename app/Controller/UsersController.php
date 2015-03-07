@@ -74,7 +74,7 @@ class UsersController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-	public function admin_view($id = null) {
+	public function view($id = null) {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
