@@ -55,3 +55,7 @@ div.sub-content {
 	color:#626262;
 	border-color:#e6e6e6;
 }
+
+.error-message {
+	color: rgb(255,84,71);
+}

@@ -94,7 +94,7 @@ class UsersController extends AppController {
 			$this->request->data['User']['password'] = $this->passwordGenerator(10);
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('L\'utilisateur a bien été sauvegardé.<br />Le mot de passe de l\'utilisateur est : <b>'.$this->request->data['User']['password'].'</b>'),'notif');
-				return $this->redirect($this->referer());
+				return $this->redirect(array('controller' => 'users', 'action' => 'index', 'admin' => TRUE));
 			} else {
 				$this->Session->setFlash(__('L\'utilisateur n\'a pas été sauvegardé, veuillez réessayer.'), 'notif', array('type' => 'danger'));
 			}
@@ -111,22 +111,24 @@ class UsersController extends AppController {
 	 * @return void
 	 */
 	public function admin_edit($id = null) {
+		$this->set('title_for_layout', 'Administration - modifier un utilisateur');
 		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
+			throw new NotFoundException(__('Utilisateur inconnu'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			// Validation des données
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved.'),'notif');
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('L\'utilisateur a bien été sauvegardé.'), 'notif');
+				return $this->redirect(array('controller' => 'users', 'action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'),'notif');
+				$this->Session->setFlash(__('Les modifications n\'ont pas été sauvegardées, veuillez réessayer.'), 'notif', array('type' => 'danger'));
 			}
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 			$this->request->data = $this->User->find('first', $options);
 		}
-		$userAsOneGroups = $this->User->UserAsOneGroup->find('list');
-		$this->set(compact('userAsOneGroups'));
+		$groups = $this->User->UserAsOneGroup->find('list');
+		$this->set(compact('groups'));
 	}
 
 	/**
@@ -149,6 +151,28 @@ class UsersController extends AppController {
 		}
 		return $this->redirect($this->referer());
 	}
-	
-	
+
+	/**
+	 * Generate a random password
+	 *
+	 * @param number $length
+	 * @return string
+	 */
+	private function passwordGenerator ($length = 8) {
+		$password = "";
+		$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+		$maxlength = strlen($possible);
+		if ($length > $maxlength) {
+			$length = $maxlength;
+		}
+		$i = 0;
+		while ($i < $length) {
+			$char = substr($possible, mt_rand(0, $maxlength-1), 1);
+			if (!strstr($password, $char)) {
+				$password .= $char;
+				$i++;
+			}
+		}
+		return $password;
+	}
 }

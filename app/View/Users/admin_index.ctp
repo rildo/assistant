@@ -23,7 +23,7 @@
 						<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 						<td>
-							<?php echo $this->Html->link($user['UserAsOneGroup']['name'], array('controller' => 'groups', 'action' => 'view', $user['UserAsOneGroup']['id'])); ?>
+							<?php echo $user['UserAsOneGroup']['name']; ?>
 						</td>
 						<td>
 							<?php
@@ -44,7 +44,23 @@
 							?>
 						</td>
 						<td class="actions">
-							<?php echo $this->Html->link($this->Html->image('icons/edit.svg',array('width' => '30','height' => '30')), array('action' => 'edit', $user['User']['id']),array('escape' => false)); ?>
+							<?php
+								echo $this->Html->link(
+									$this->Html->image(
+										'icons/edit.svg',
+										array(
+											'width' => '30',
+											'height' => '30'
+									)),
+									array(
+										'action' => 'edit',
+										'admin' => TRUE,
+										$user['User']['id']
+									),
+									array(
+										'escape' => false
+								));
+							?>
 							<?php echo $this->Form->postLink($this->Html->image('icons/delete.svg',array('width' => '30','height' => '30','class' => 'button-delete')), array('action' => 'delete', $user['User']['id']),array('escape' => false), __('Voulez vous vraiment supprimer %s?', $user['User']['name'])); ?>
 						</td>
 					</tr>

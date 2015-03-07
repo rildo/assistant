@@ -31,7 +31,7 @@ class User extends AppModel {
 				'message' => 'Ce nom d\'utilisateur est déjà utilisé.'
 			),
 			'name_minlength' => array(
-				'rule'    => array('minLength', 5),
+				'rule'    => array('minLength', 3),
 				'message' => 'Le nom d\'utilisateur doit faire au moins 3 caractères.'
 			),
 			'name_maxlength' => array(
