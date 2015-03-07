@@ -24,7 +24,8 @@
 			echo $this->Form->input(
 				'group_id',
 				array(
-					'label' => 'Groupe'
+					'label' => 'Groupe',
+					'options' => $groups
 			));
 			echo $this->Form->button(
 				'Ajouter',

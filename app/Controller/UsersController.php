@@ -69,8 +69,8 @@ class UsersController extends AppController {
 				$this->Session->setFlash(__('L\'utilisateur n\'a pas été sauvegardé, veuillez réessayer.'), 'notif', array('type' => 'danger'));
 			}
 		}
-		$userAsOneGroups = $this->User->UserAsOneGroup->find('list');
-		$this->set(compact('userAsOneGroups'));
+		$groups = $this->User->UserAsOneGroup->find('list');
+		$this->set(compact('groups'));
 	}
 
 	/**
