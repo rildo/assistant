@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+div.sub-content {
+	background-color: rgb(255,255,255);
+	padding: 20px;
+}
+
+.button-delete {
+	fill: rgb(255,84,71);
+}
+
+.action-space {
+	float: right;
+	padding-right: 20px;
+}
+
+.alert {
+	background-image:none;
+	box-shadow:none;
+	text-shadow:none;
+	padding:9px 19px 9px 15px;
+	border-radius:3px;
+	font-size:13px;
+	border-width:0;
+	-webkit-transition:all 0.2s linear 0s;
+	transition:all 0.2s linear 0s;
+}
+
+.alert-danger,.alert-error{
+	background-color:#fddddd;
+	color:#933432;
+	border-color:#933432;
+}
+
+.alert-warning{
+	background-color:#fef6dd;
+	color:#957d32;
+	border-color:#957d32;
+}
+
+.alert-info{
+	background-color:#daeffd;
+	color:#2b6a94;
+	border-color:#2b6a94;
+}
+
+.alert-success{
+	background-color:#cff5f2;
+	color:#0a7c71;
+	border-color:#0a7c71;
+}
+
+.alert-default{
+	background-color:#fff;
+	color:#626262;
+	border-color:#e6e6e6;
+}

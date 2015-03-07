@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+html {
+	background-color: rgb(228,231,236);
+}
+
+#container {
+	width: 90%;
+	margin: 0 auto;
+	padding-top: 83px;
+}
