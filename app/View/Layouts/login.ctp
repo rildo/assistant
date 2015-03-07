@@ -19,7 +19,12 @@
 	?>
 </head>
 <body>
-	<?php echo $this->Session->flash(); ?>
-	<?php echo $this->fetch('content'); ?>
+	<div class="container">
+		<div class="row">
+			<div class="one-half column" style="margin-top: 25%">
+				<?php echo $this->fetch('content'); ?>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

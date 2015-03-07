@@ -127,7 +127,24 @@ class UsersController extends AppController {
 	public function login() {
 		$this->layout="login";
 		$this->set('title','Connexion');
+		if ($this->request->is("post")) {
+			if ($this->Auth->login()) {
+				$this->redirect("/");
+			}
+			else {
+				$this->Session->setFlash("Knock knock knock Penny", 'default', array("class" => "erreur"));
+			}
+			
+		}
 		
-		
+	}
+	/**
+	 * logout method
+	 *
+	 * @return void
+	 */
+	public function logout() {
+		$this->Auth->logout();
+		$this->redirect($this->Auth->logoutRedirect);
 	}
 }
