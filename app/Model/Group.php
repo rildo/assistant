@@ -25,7 +25,7 @@ class Group extends AppModel {
 	public $hasMany = array(
 		'group_as_as_many_users' => array(
 			'className' => 'Users',
-			'foreignKey' => 'id',
+			'foreignKey' => 'group_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
