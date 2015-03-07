@@ -18,7 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($users as $user): ?>
+				<?php foreach ($users as $user):  ?>
 					<tr>
 						<td><?php echo h($user['User']['name']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['email']); ?>&nbsp;</td>

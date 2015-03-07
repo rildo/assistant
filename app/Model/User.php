@@ -87,7 +87,7 @@ class User extends AppModel {
 	public $belongsTo = array(
 		'UserAsOneGroup' => array(
 			'className' => 'Group',
-			'foreignKey' => 'id',
+			'foreignKey' => 'group_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
