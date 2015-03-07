@@ -44,7 +44,27 @@ class AppController extends Controller {
 					),
 					'passwordHasher' => 'Pbkdf2'
 				)
-			)
+			),
+			'authorize' => array('Controller')
         )
 	);
+	
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->set("userName", $this->Auth->user("name"));
+		$this->set("userGroup", $this->Auth->user("group_id"));
+	}
+	
+	
+	public function isAuthorized($user) {
+		if ($this->request->param("prefix")!="admin") {
+			return true;
+		}
+		if (isset($user['group_id']) && $user['group_id'] == 1) {
+			return true;
+		}
+
+		// Refus par défaut
+		return false;
+	}
 }

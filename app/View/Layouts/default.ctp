@@ -29,7 +29,7 @@
 						<a href="#">
 							<div class="user-details">
 								<span class="badge important">999</span>
-								Rildo
+								<?= $userName; ?>
 							</div>
 						</a>
 						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
@@ -87,9 +87,11 @@
 								<li><a href="calender.html">My Calendar</a> </li>
 								<li><a href="email.html"> My Inbox&nbsp;&nbsp;<span class="badge important">2</span></a> </li>
 								<li class="divider"></li>
-								<li class="title">Administration</li>
-								<li><?= $this->Html->link("Utilisateurs", array('controller' => 'users', 'action' => 'index')); ?></li>
-								<li class="divider"></li>
+								<?php if ($userGroup==1): ?>
+									<li class="title">Administration</li>
+									<li><?= $this->Html->link("Utilisateurs", array('admin' => true,'controller' => 'users', 'action' => 'index')); ?></li>
+									<li class="divider"></li>
+								<?php endif; ?>
 								<li>
 									<?php
 										echo $this->Html->link(
@@ -102,6 +104,7 @@
 												).' '.__('Déconnexion')
 											,
 											array(
+												'admin' => false,
 												'controller' => 'users',
 												'action' => 'logout'
 											),
