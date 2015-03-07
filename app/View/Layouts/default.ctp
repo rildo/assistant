@@ -99,7 +99,7 @@
 													'width' => '25',
 													'height' => '25'
 													)
-												).' '.__('Log out')
+												).' '.__('Déconnexion')
 											,
 											array(
 												'controller' => 'users',

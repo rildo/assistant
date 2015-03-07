@@ -129,29 +129,24 @@ class UsersController extends AppController {
 	public function login() {
 		$this->layout="login";
 		$this->set('title','Connexion');
-	}
-
-	/**
-	 * Generate a random password
-	 *
-	 * @param number $length
-	 * @return string
-	 */
-	private function passwordGenerator ($length = 8) {
-		$password = "";
-		$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
-		$maxlength = strlen($possible);
-		if ($length > $maxlength) {
-			$length = $maxlength;
-		}
-		$i = 0;
-		while ($i < $length) {
-			$char = substr($possible, mt_rand(0, $maxlength-1), 1);
-			if (!strstr($password, $char)) {
-				$password .= $char;
-				$i++;
+		if ($this->request->is("post")) {
+			if ($this->Auth->login()) {
+				$this->redirect("/");
 			}
+			else {
+				$this->Session->setFlash("Knock knock knock Penny", 'default', array("class" => "erreur"));
+			}
+			
 		}
-		return $password;
+		
+	}
+	/**
+	 * logout method
+	 *
+	 * @return void
+	 */
+	public function logout() {
+		$this->Auth->logout();
+		$this->redirect($this->Auth->logoutRedirect);
 	}
 }

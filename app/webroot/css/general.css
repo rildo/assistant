@@ -9,3 +9,5 @@ html {
 	margin: 0 auto;
 	padding-top: 83px;
 }
+
+.erreur { font-weight: bold; color:#9E2424; }

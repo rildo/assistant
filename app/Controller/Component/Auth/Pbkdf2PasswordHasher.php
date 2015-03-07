@@ -68,13 +68,13 @@ class Pbkdf2PasswordHasher extends AbstractPasswordHasher {
 		return $this->slow_equals(
 		    $pbkdf2,
 		    $this->pbkdf2(
-			$params[HASH_ALGORITHM_INDEX],
-			$password,
-			$params[HASH_SALT_INDEX],
-			(int)$params[HASH_ITERATION_INDEX],
-			strlen($pbkdf2),
-			true
-		    )
+				$params[HASH_ALGORITHM_INDEX],
+				$password,
+				$params[HASH_SALT_INDEX],
+				(int)$params[HASH_ITERATION_INDEX],
+				strlen($pbkdf2),
+				true
+			)
 		);
     }
 
