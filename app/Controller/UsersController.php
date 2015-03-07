@@ -117,4 +117,17 @@ class UsersController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+	
+	
+	/**
+	 * login method
+	 *
+	 * @return void
+	 */
+	public function login() {
+		$this->layout="login";
+		$this->set('title','Connexion');
+		
+		
+	}
 }

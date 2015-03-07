@@ -99,6 +99,12 @@
   overflow: hidden;
   background-color: #e5e5e5;
 }
+.dropdown-menu > li.title {
+	text-transform: uppercase;
+	padding-left:16px;
+	font-weight: bold;
+	font-size:10px;
+}
 .dropdown-menu > li > a {
   display: block;
   padding: 3px 20px;

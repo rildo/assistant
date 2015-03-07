@@ -1,23 +1,3 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
-
-?>
 <!DOCTYPE html>
 <html lang="fr-FR">
 	<head>
@@ -41,7 +21,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 	<body>
 		<header class="u-full-width">
 			<div class="header-logo-space u-pull-left">
-				<?php echo $this->Html->link('Assistant',array()); ?>
+				<?php echo $this->Html->link('Assistant','/'); ?>
 			</div>
 			<div class="header-quick-nav">
 				<div class="quick-nav-right">
@@ -106,6 +86,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 								<li><a href="user-profile.html"> My Account</a> </li>
 								<li><a href="calender.html">My Calendar</a> </li>
 								<li><a href="email.html"> My Inbox&nbsp;&nbsp;<span class="badge important">2</span></a> </li>
+								<li class="divider"></li>
+								<li class="title">Administration</li>
+								<li><?= $this->Html->link("Utilisateurs", array('controller' => 'users', 'actions' => 'index')); ?></li>
 								<li class="divider"></li>
 								<li>
 									<?php
