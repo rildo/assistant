@@ -13,7 +13,10 @@
 				'name',
 				array(
 					'label' => 'Nom d\'utilisateur',
-					'placeholder' => 'Ex: Stephanie de Monaco'
+					'data-toggle' => 'tooltip',
+					'data-placement' => 'right',
+					'title' => '3 caractères minimum',
+					'id' => 'userName'
 			));
 			echo $this->Form->input(
 				'email',
