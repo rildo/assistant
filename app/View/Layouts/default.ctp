@@ -83,7 +83,7 @@
 								);
 							?>
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-								<li><a href="user-profile.html"> My Account</a> </li>
+								<li><?= $this->Html->link("Mon compte", array('admin' => false,"controller" => "users", 'action' => "account")); ?></li>
 								<li><a href="calender.html">My Calendar</a> </li>
 								<li><a href="email.html"> My Inbox&nbsp;&nbsp;<span class="badge important">2</span></a> </li>
 								<li class="divider"></li>
@@ -91,7 +91,6 @@
 									<li class="title">Administration</li>
 									<li><?= $this->Html->link("Utilisateurs", array('admin' => true,'controller' => 'users', 'action' => 'index')); ?></li>
 									<li><?= $this->Html->link("Groupes", array('admin' => true,'controller' => 'groups', 'action' => 'index')); ?></li>
-									<li><?= $this->Html->link("Sources", array('admin' => true,'controller' => 'sources', 'action' => 'index')); ?></li>
 									<li class="divider"></li>
 								<?php endif; ?>
 								<li>

@@ -2,7 +2,7 @@
 	<h2>
 		<?php echo $title; ?>
 		<div class="action-space">
-			<?php echo $this->Html->link('Liste des sources',array("admin" => true,'controller' => 'sources', 'action' => 'index'),array('class' => 'button')); ?>
+			<?php echo $this->Html->link('Liste des sources',array("admin" => false,'controller' => 'sources', 'action' => 'index'),array('class' => 'button')); ?>
 		</div>
 	</h2>
 	<div class="sub-content">
@@ -20,7 +20,7 @@
 		<div id="config1" class="config">
 			<?= $this->Form->input('config1.host', array('label' => 'Serveur')); ?>
 			<?= $this->Form->input('config1.user', array('label' => 'Utilisateur')); ?>
-			<?= $this->Form->input('config1.pass', array('label' => 'Mot de passe')); ?>
+			<?= $this->Form->input('config1.pass', array('label' => 'Mot de passe', "type" => "password")); ?>
 			<?= $this->Form->input('config1.name', array('label' => 'Base de donnée')); ?>
 		</div>
 		<div id="config2" class="config">

@@ -54,6 +54,12 @@ class UsersController extends AppController {
 		$this->Auth->logout();
 		$this->redirect($this->Auth->logoutRedirect);
 	}
+	
+	
+	public function account() {
+		
+	}
+	
 
 	/**
 	 * index method

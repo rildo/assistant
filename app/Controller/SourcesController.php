@@ -31,7 +31,7 @@ class SourcesController extends AppController {
 	 *
 	 * @return void
 	 */
-	public function admin_index() {
+	public function index() {
 		$this->set('title_for_layout', 'Administration - Sources');
 		$this->Paginator->settings = $this->paginate;
 		$this->Source->recursive = 0;
@@ -53,25 +53,7 @@ class SourcesController extends AppController {
 		$options = array('conditions' => array('Source.' . $this->Source->primaryKey => $id));
 		$this->set('source', $this->Source->find('first', $options));
 	}
-
-	/**
-	 * add method
-	 *
-	 * @return void
-	 */
-	public function admin_add() {
-		$this->set('title_for_layout', 'Administration - Ajouter une source');
-		if ($this->request->is('post')) {
-			$this->Source->create();
-			if ($this->Source->save($this->request->data)) {
-				$this->Session->setFlash(__("La source a été ajouté."),'notif');
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('La source n\'a pas été créé, veuillez vérifier la saisie.'),'notif', array('type' => 'danger'));
-			}
-		}
-	}
-
+	
 	/**
 	 * edit method
 	 *
@@ -79,7 +61,7 @@ class SourcesController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-	public function admin_edit($id = null) {
+	public function edit($id = null) {
 		$crypt = $this->Crypt->crypt("dqdqsdsqdqs");
 		if ($this->request->is(array('post', 'put'))) {
 			$data = $this->request->data;
@@ -126,7 +108,7 @@ class SourcesController extends AppController {
 	 * @param string $id
 	 * @return void
 	 */
-	public function admin_delete($id = null) {
+	public function delete($id = null) {
 		$this->Source->id = $id;
 		if (!$this->Source->exists()) {
 			throw new NotFoundException(__('Soruce inconnu'));

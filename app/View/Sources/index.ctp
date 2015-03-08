@@ -2,7 +2,7 @@
 	<h2>
 		<?php echo __('Source'); ?>
 		<div class="action-space">
-			<?php echo $this->Html->link('Ajouter une source',array("admin" => true,'controller' => 'sources', 'action' => 'edit'),array('class' => 'button')); ?>
+			<?php echo $this->Html->link('Ajouter une source',array("admin" => false,'controller' => 'sources', 'action' => 'edit'),array('class' => 'button')); ?>
 		</div>
 	</h2>
 	<div class="sub-content">
