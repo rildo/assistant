@@ -11,3 +11,10 @@ html {
 }
 
 .erreur { font-weight: bold; color:#9E2424; }
+
+
+/*******************
+	Config Source
+********************/
+
+.config { display:none; }
