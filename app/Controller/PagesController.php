@@ -35,7 +35,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array("Source");
 
 /**
  * Displays a view
@@ -65,14 +65,17 @@ class PagesController extends AppController {
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
 		if ($page=="home") {
-			//Zone de test
-			try {
-				$this->loadModel("Film", 1);
-				$lists = $this->Film->find("all");
-				$this->set(compact("lists"));
-			}
-			catch (Exception $e) {
-				// Gestion de l'erreur à faire
+			$source = $this->Source->find("first", array("conditions" => array("user_id" => $this->Auth->user("id"))));
+			if (!empty($source)) {
+				//Zone de test
+				try {
+					$this->loadModel("Film", $source["Source"]["id"]);
+					$lists = $this->Film->find("all");
+					$this->set(compact("lists"));
+				}
+				catch (Exception $e) {
+					// Gestion de l'erreur à faire
+				}
 			}
 		}
 		
