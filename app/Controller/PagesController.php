@@ -66,11 +66,14 @@ class PagesController extends AppController {
 
 		if ($page=="home") {
 			//Zone de test
-			$this->loadModel("Film", 1);
-			$lists = $this->Film->find("all");
-
-
-			$this->set(compact("lists"));
+			try {
+				$this->loadModel("Film", 1);
+				$lists = $this->Film->find("all");
+				$this->set(compact("lists"));
+			}
+			catch (Exception $e) {
+				// Gestion de l'erreur à faire
+			}
 		}
 		
 		

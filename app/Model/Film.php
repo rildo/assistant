@@ -30,24 +30,26 @@ class Film extends AppModel {
 				default:break;
 			}
 			$cryptComponent = new CryptComponent(new ComponentCollection);
-			$config["password"] = $cryptComponent->decrypt($config["password"]);
-			ConnectionManager::create($config["database"], $config);
-			$this->useDbConfig = $config["database"];
-			
-			$produit = $source["Source"]["produit_id"];
-			if ($produit==1) {
-				$this->primaryKey = "idFile";
-				$this->hasMany = array(
-					"Stream" => array("className" => "Source".$id["id"]."Streamdetails", "foreignKey" => "idFile", "conditions" => array("iStreamType"=>0))
-				);
+			if (isset($config["password"])) {
+				$config["password"] = $cryptComponent->decrypt($config["password"]);
+				ConnectionManager::create($config["database"], $config);
+				$this->useDbConfig = $config["database"];
+
+				$produit = $source["Source"]["produit_id"];
+				if ($produit==1) {
+					$this->primaryKey = "idFile";
+					$this->hasMany = array(
+						"Stream" => array("className" => "Source".$id["id"]."Streamdetails", "foreignKey" => "idFile", "fields" => array("iVideoWidth"), "conditions" => array("iStreamType"=>0))
+					);
+				}
+				if (isset($this->movieMapping[$produit])) {
+					$this->virtualFields = $this->movieMapping[$produit];
+				}
+
+				// Assignation
+				$table = "movie";
+				$id = false;
 			}
-			if (isset($this->movieMapping[$produit])) {
-				$this->virtualFields = $this->movieMapping[$produit];
-			}
-			
-			// Assignation
-			$table = "movie";
-			$id = false;
 		}
 		
 		parent::__construct($id, $table, $ds);
