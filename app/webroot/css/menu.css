@@ -158,3 +158,28 @@ header .nav > li {
 header a > img {
 	vertical-align: middle;
 }
+
+header .quick-section {
+    margin-left: 20px;
+    margin-top: 18px;
+    margin-right: 20px;
+    display: inline-block;
+    float: left;
+    direction: ltr;
+    padding-left: 0px;
+	margin-bottom: 0px;
+	list-style: outside none none;
+}
+
+header .quick-section li {
+	display: inline-block;
+	margin: 0px 5px;
+}
+
+header .quick-section a {
+    color: rgb(34,38,46);
+}
+
+header .quick-section a:hover {
+	color: rgb(3,169,244);
+}

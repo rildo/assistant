@@ -59,3 +59,11 @@ div.sub-content {
 .error-message {
 	color: rgb(255,84,71);
 }
+
+.f-left {
+	float: left;
+}
+
+.f-right {
+	float: right;
+}

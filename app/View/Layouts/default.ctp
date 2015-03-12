@@ -23,6 +23,13 @@
 			<div class="header-logo-space u-pull-left">
 				<?php echo $this->Html->link('Assistant','/'); ?>
 			</div>
+			<div class="u-pull-left">
+				<ul class="quick-section">
+					<li><?php echo $this->Html->link('Films',array('controller' => 'films', 'action' => 'index')); ?></li>
+					<li><?php echo $this->Html->link('Scripts',array('controller' => 'scripts', 'action' => 'index')); ?></li>
+					<li><?php echo $this->Html->link('Jeux',array('controller' => 'games', 'action' => 'index')); ?></li>
+				</ul>
+			</div>
 			<div class="header-quick-nav">
 				<div class="quick-nav-right">
 					<div class="notifications-toggler">
