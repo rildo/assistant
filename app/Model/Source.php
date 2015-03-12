@@ -26,15 +26,10 @@ class Source extends AppModel {
 		'SourceAsOneType' => array(
 			'className' => 'SourcesType',
 			'foreignKey' => 'type_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+		),
+		'SourceAsOneUser' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id'
 		)
 	);
 

@@ -18,3 +18,18 @@ html {
 ********************/
 
 .config { display:none; }
+
+
+#film .extension, #film .quality {
+	text-transform: uppercase;
+	padding:3px;
+	border-radius:3px;
+}
+
+#film .extension {
+	background:#cccccc;
+}
+#film .quality {
+	background:#007fff;
+	color:#ffffff;
+}

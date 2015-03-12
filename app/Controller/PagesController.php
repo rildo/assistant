@@ -64,6 +64,16 @@ class PagesController extends AppController {
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
+		if ($page=="home") {
+			//Zone de test
+			$this->loadModel("Film", 1);
+			$lists = $this->Film->find("all");
+
+
+			$this->set(compact("lists"));
+		}
+		
+		
 		try {
 			$this->render(implode('/', $path));
 		} catch (MissingViewException $e) {

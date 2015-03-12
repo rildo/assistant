@@ -25,6 +25,10 @@ class SourcesController extends AppController {
 			'Source.name' => 'asc'
 		)
 	);
+	
+	private $produits = array(
+		1 => "Xbmc"
+	);
 
 	/**
 	 * index method
@@ -33,9 +37,10 @@ class SourcesController extends AppController {
 	 */
 	public function index() {
 		$this->set('title_for_layout', 'Administration - Sources');
-		$this->Paginator->settings = $this->paginate;
 		$this->Source->recursive = 0;
-		$this->set('sources', $this->Paginator->paginate());
+		$this->set('sources', $this->paginate(array(
+			"user_id" => $this->Auth->user("id")
+		)));
 	}
 
 	/***
@@ -62,12 +67,12 @@ class SourcesController extends AppController {
 	 * @return void
 	 */
 	public function edit($id = null) {
-		$crypt = $this->Crypt->crypt("dqdqsdsqdqs");
 		if ($this->request->is(array('post', 'put'))) {
 			$data = $this->request->data;
+			$data["Source"]["user_id"] = $this->Auth->user("id");
 			if (!empty($data["Source"]["type_id"]) && isset($data["config".$data["Source"]["type_id"]])) {
-				if (!empty($data["config".$data["Source"]["type_id"]]["pass"])) {
-					$data["config".$data["Source"]["type_id"]]["pass"] = $this->Crypt->crypt($data["config".$data["Source"]["type_id"]]["pass"]); 
+				if (!empty($data["config".$data["Source"]["type_id"]]["password"])) {
+					$data["config".$data["Source"]["type_id"]]["password"] = $this->Crypt->crypt($data["config".$data["Source"]["type_id"]]["password"]); 
 				}
 				$data["Source"]["config"] = serialize($data["config".$data["Source"]["type_id"]]);
 			}
@@ -91,12 +96,13 @@ class SourcesController extends AppController {
 				$this->request->data = $this->Source->find('first', $options);
 				$keyConfig = "config".$this->request->data["Source"]["type_id"];
 				$this->request->data[$keyConfig] = unserialize($this->request->data["Source"]["config"]);
-				if (isset($this->request->data[$keyConfig]["pass"])) {
-					$this->request->data[$keyConfig]["pass"] = $this->Crypt->decrypt($this->request->data[$keyConfig]["pass"]);
+				if (isset($this->request->data[$keyConfig]["password"])) {
+					$this->request->data[$keyConfig]["password"] = $this->Crypt->decrypt($this->request->data[$keyConfig]["password"]);
 				}
 				$this->set("title", "Modifier la source : ".$this->request->data["Source"]["name"]);
 			}
 			$this->set("types", $this->Source->SourceAsOneType->find("list"));
+			$this->set("produits", $this->produits);
 			$this->set('title_for_layout', 'Administration - '.$this->viewVars["title"]);
 		}
 	}

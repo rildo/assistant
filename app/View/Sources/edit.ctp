@@ -19,9 +19,9 @@
 		<?= $this->Form->input('type_id', array('label' => 'Type de la source')); ?>
 		<div id="config1" class="config">
 			<?= $this->Form->input('config1.host', array('label' => 'Serveur')); ?>
-			<?= $this->Form->input('config1.user', array('label' => 'Utilisateur')); ?>
-			<?= $this->Form->input('config1.pass', array('label' => 'Mot de passe', "type" => "password")); ?>
-			<?= $this->Form->input('config1.name', array('label' => 'Base de donnée')); ?>
+			<?= $this->Form->input('config1.login', array('label' => 'Utilisateur')); ?>
+			<?= $this->Form->input('config1.password', array('label' => 'Mot de passe', "type" => "password")); ?>
+			<?= $this->Form->input('config1.database', array('label' => 'Base de donnée')); ?>
 		</div>
 		<div id="config2" class="config">
 			<?= $this->Form->input('config2.path', array('label' => 'Chemin')); ?>

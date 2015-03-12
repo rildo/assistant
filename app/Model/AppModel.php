@@ -30,4 +30,36 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	
+	public function __construct($id = false, $table = null, $ds = null) {
+		
+		if (preg_match("#Source([0-9]+)(.*)#", $id["class"], $result)) {
+			$id=$result[1];
+			// Récupération de la source
+			$sourceModel = ClassRegistry::init("Source");
+			$source = $sourceModel->findById($id);
+			if (!empty($source)) {
+				$config = unserialize($source["Source"]["config"]);
+				$config["encoding"] = "utf8";
+				switch ($source["Source"]["type_id"]) {
+					case 1: $config["datasource"] = "Database/Mysql"; break;
+					case 2: $config["datasource"] = "Database/Sqlite"; break;
+					default:break;
+				}
+				$cryptComponent = new CryptComponent(new ComponentCollection);
+				$config["password"] = $cryptComponent->decrypt($config["password"]);
+				ConnectionManager::create($config["database"], $config);
+				$this->useDbConfig = $config["database"];
+
+				//$produit = $source["Source"]["produit_id"];
+				
+
+				// Assignation
+				$table = strtolower($result[2]);
+				$id=null;
+			}
+		}
+		parent::__construct($id, $table, $ds);
+		
+	}
 }
