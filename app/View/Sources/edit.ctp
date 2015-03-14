@@ -16,7 +16,8 @@
 					'placeholder' => 'Ex: XBMC'
 			));
 		?>
-		<?= $this->Form->input('type_id', array('label' => 'Type de la source')); ?>
+		<?= $this->Form->input('produit_id', array('label' => 'Type')); ?>
+		<?= $this->Form->input('type_id', array('label' => 'Type de connexion')); ?>
 		<div id="config1" class="config">
 			<?= $this->Form->input('config1.host', array('label' => 'Serveur')); ?>
 			<?= $this->Form->input('config1.login', array('label' => 'Utilisateur')); ?>
