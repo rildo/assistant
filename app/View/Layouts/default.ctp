@@ -35,35 +35,12 @@
 					<div class="notifications-toggler">
 						<a href="#">
 							<div class="user-details">
-								<span class="badge important">999</span>
+								<?php if (!empty($nbNonLu) && $nbNonLu>0): ?>
+									<span class="badge important"><?= $nbNonLu; ?></span>
+								<?php endif; ?>
 								<?= $userName; ?>
 							</div>
 						</a>
-						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-							<li><a href="user-profile.html"> My Account</a> </li>
-							<li><a href="calender.html">My Calendar</a> </li>
-							<li><a href="email.html"> My Inbox&nbsp;&nbsp;<span class="badge important">2</span></a> </li>
-							<li class="divider"></li>
-							<li>
-								<?php
-									echo $this->Html->link(
-										$this->Html->image(
-											'icons/log_out.svg',
-											array(
-												'width' => '25',
-												'height' => '25'
-												)
-											).' '.__('Log out')
-										,
-										array(
-											'controller' => 'users',
-											'action' => 'logout'
-										),
-										array('escape' => false)
-									);
-								?>
-							</li>
-						</ul>
 					</div>
 					<ul class="header-quick-section ">
 						<li class="quicklinks dropdown">
@@ -91,8 +68,7 @@
 							?>
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
 								<li><?= $this->Html->link("Mon compte", array('admin' => false,"controller" => "users", 'action' => "account")); ?></li>
-								<li><a href="calender.html">My Calendar</a> </li>
-								<li><a href="email.html"> My Inbox&nbsp;&nbsp;<span class="badge important">2</span></a> </li>
+								<li><?= $this->Html->link("Notifications".(isset($nbNonLu) ? "&nbsp;&nbsp;<span class=\"badge ".($nbNonLu>0 ? "important" : "")."\">".intval($nbNonLu)."</span>" : ""), array('admin' => false,"controller" => "messages", 'action' => "index"), array("escape" => false)); ?></li>
 								<li class="divider"></li>
 								<?php if ($userGroup==1): ?>
 									<li class="title">Administration</li>

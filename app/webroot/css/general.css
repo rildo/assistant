@@ -11,7 +11,8 @@ html {
 }
 
 .erreur { font-weight: bold; color:#9E2424; }
-
+.bg-white { background: #ffffff; }
+.bg-blue { background: rgba(15,160,206,0.3); }
 
 /*******************
 	Config Source
@@ -20,6 +21,15 @@ html {
 .config { display:none; }
 
 
+
+/*******************
+	Notification
+********************/
+
+
+/*******************
+	Film
+********************/
 #film .extension, #film .quality {
 	text-transform: uppercase;
 	padding:3px;

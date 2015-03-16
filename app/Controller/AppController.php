@@ -49,10 +49,16 @@ class AppController extends Controller {
         )
 	);
 	
+	public $uses = array("Message");
+	
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->set("userName", $this->Auth->user("name"));
 		$this->set("userGroup", $this->Auth->user("group_id"));
+		
+		// Gestion des notifications
+		$nbNonLu = $this->Message->find("count", array("conditions" => array("read" => 0,"user_id" => $this->Auth->user("id"))));
+		$this->set(compact("nbNonLu"));
 	}
 	
 	
