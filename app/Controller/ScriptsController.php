@@ -47,6 +47,7 @@ class ScriptsController extends AppController {
  * @return void
  */
 	public function add() {
+		$this->set('title_for_layout', 'Scripts - ajouter');
 		if ($this->request->is('post')) {
 			$this->Script->create();
 			if ($this->Script->save($this->request->data)) {
