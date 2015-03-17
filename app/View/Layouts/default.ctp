@@ -33,7 +33,7 @@
 			<div class="header-quick-nav">
 				<div class="quick-nav-right">
 					<div class="notifications-toggler">
-						<a href="#">
+						<a href="#" id="user-notification" class="dropdown-toggle" data-toggle="dropdown">
 							<div class="user-details">
 								<?php if (!empty($nbNonLu) && $nbNonLu>0): ?>
 									<span class="badge important"><?= $nbNonLu; ?></span>
@@ -41,6 +41,24 @@
 								<?= $userName; ?>
 							</div>
 						</a>
+						<div class="dropdown-menu pull-right" role="menu" aria-labelledby="user-notification">
+							<h2>Notifications</h2>
+							<?php if(!empty($dernierMessage)): ?>
+								<?php foreach($dernierMessage as $m) : ?>
+									<div class="notification <?= ($m["Message"]["read"]==0 ? "bg-blue": ""); ?>">
+										<h3><?= $m["Message"]["name"]; ?></h3>
+										<p><?= $m["Message"]["message"]; ?></p>
+										<span><?= $this->Time->format("d/m/Y H:i:s",$m["Message"]["date"]); ?></span>
+									</div>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<div class="notification-buttons">
+								<a href="#" class="button">Fermer</a>
+								<?php if (!empty($dernierMessage)): ?>
+									<a href="#" class="button">Effacer tout</a>
+								<?php endif; ?>
+							</div>
+						</div>
 					</div>
 					<ul class="header-quick-section ">
 						<li class="quicklinks dropdown">

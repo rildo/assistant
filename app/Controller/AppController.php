@@ -58,7 +58,8 @@ class AppController extends Controller {
 		
 		// Gestion des notifications
 		$nbNonLu = $this->Message->find("count", array("conditions" => array("read" => 0,"user_id" => $this->Auth->user("id"))));
-		$this->set(compact("nbNonLu"));
+		$dernierMessage = $this->Message->find("all", array("conditions" => array("user_id" => $this->Auth->user("id")), "limit" => 5));
+		$this->set(compact("nbNonLu", "dernierMessage"));
 	}
 	
 	
