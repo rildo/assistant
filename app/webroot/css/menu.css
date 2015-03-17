@@ -43,7 +43,7 @@ header .quick-nav-right {
 }
 
 header .notifications-toggler {
-	position: relative;
+/*	position: relative;*/
 	top: 10%;
 	margin-right: 5px;
 	display: inline-block;
