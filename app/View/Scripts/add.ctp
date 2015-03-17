@@ -5,7 +5,10 @@
 			<?php echo $this->Html->link('Ajouter un script',array('controller' => 'scripts', 'action' => 'index'),array('class' => 'button')); ?>
 		</div>
 	</h2>
-	<?php echo $this->Form->create('User',array('class' => 'row')); ?>
+	<?php
+		if (empty($step) || $step == 1):
+			echo $this->Form->create('User',array('class' => 'row'));
+	?>
 		<div class="sub-content row">
 			<div class="columns">
 				<div class="alert alert-info">
@@ -13,7 +16,7 @@
 					Pour ajouter plusieurs scripts, saisir le répertoire contenant les scripts à ajouter.
 				</div>
 				<br />
-				<?php echo $this->form->input('Répertoire / Script', array('type' => 'text','class' => 'u-full-width')); ?>
+				<?php echo $this->form->input('script', array('type' => 'text','class' => 'u-full-width', 'label' => 'Répertoire / Script')); ?>
 			</div>
 			<?php
 				echo $this->Form->button(
@@ -23,5 +26,9 @@
 				));
 			?>
 		</div>
-	<?php echo $this->Form->end(); ?>
+	<?php
+			echo $this->Form->end();
+		elseif(true):
+	?>
+	<?php endif; ?>
 </div>

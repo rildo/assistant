@@ -41,21 +41,40 @@ class ScriptsController extends AppController {
 		$this->set('script', $this->Script->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * Method to add scripts
+	 *
+	 * Steps :
+	 * 	 1-
+	 *
+	 * @return void
+	 */
 	public function add() {
 		$this->set('title_for_layout', 'Scripts - ajouter');
-		if ($this->request->is('post')) {
-			$this->Script->create();
-			if ($this->Script->save($this->request->data)) {
-				$this->Session->setFlash(__('The script has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+		$step = 1;
+		if ($this->request->is('post') & $step==1) {
+			// check of the first step form
+			// input is the scripts
+			if (is_file($this->request->data['script'])) {
+				$this->set('step', 3);
+			// input is the directory
+			} elseif (is_dir($this->request->data['script'])) {
+				// Passage à l'étape de sélection des scripts à importer
+				$this->set('step', 2);
+				$scripts = glob($this->request->data['script'].'/*.*');
+				$this->set(compact('scripts'));
 			} else {
-				$this->Session->setFlash(__('The script could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('La valeur saisie ne correspond ni à un script, ni à un répertoire existant.'),'notif', array('type' => 'danger'));
 			}
+// 			$this->Script->create();
+// 			if ($this->Script->save($this->request->data)) {
+// 				$this->Session->setFlash(__('The script has been saved.'));
+// 				return $this->redirect(array('action' => 'index'));
+// 			} else {
+// 				$this->Session->setFlash(__('The script could not be saved. Please, try again.'));
+// 			}
+		} else {
+			$this->set('step', 1);
 		}
 	}
 
