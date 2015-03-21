@@ -33,30 +33,29 @@
 			<div class="header-quick-nav">
 				<div class="quick-nav-right">
 					<div class="notifications-toggler">
-						<a href="#" id="user-notification" class="dropdown-toggle" data-toggle="dropdown">
-							<div class="user-details">
+						<a href="<?= $this->Html->url(array("controller" => "messages", "action" => "last")); ?>" id="user-notification" class="dropdown-toggle" data-toggle="dropdown">
+							<div class="user-details notifBadgeZone">
+								<?= $userName; ?>
 								<?php if (!empty($nbNonLu) && $nbNonLu>0): ?>
 									<span class="badge important"><?= $nbNonLu; ?></span>
 								<?php endif; ?>
-								<?= $userName; ?>
 							</div>
 						</a>
 						<div class="dropdown-menu pull-right" role="menu" aria-labelledby="user-notification">
 							<h2>Notifications</h2>
-							<?php if(!empty($dernierMessage)): ?>
-								<?php foreach($dernierMessage as $m) : ?>
-									<div class="notification <?= ($m["Message"]["read"]==0 ? "bg-blue": ""); ?>">
-										<h3><?= $m["Message"]["name"]; ?></h3>
-										<p><?= $m["Message"]["message"]; ?></p>
-										<span><?= $this->Time->format("d/m/Y H:i:s",$m["Message"]["date"]); ?></span>
-									</div>
-								<?php endforeach; ?>
-							<?php endif; ?>
-							<div class="notification-buttons">
-								<a href="#" class="button">Fermer</a>
-								<?php if (!empty($dernierMessage)): ?>
-									<a href="#" class="button">Effacer tout</a>
+							<div id="listNotification">
+								<?php if(!empty($dernierMessage)): ?>
+									<?php foreach($dernierMessage as $m) : ?>
+										<?= $this->element("message", array("m" => $m)); ?>
+									<?php endforeach; ?>
 								<?php endif; ?>
+							</div>
+							<div class="notification-buttons">
+								<a href="#" id="closeNotification" class="button">Fermer</a>
+								<?php if (!empty($dernierMessage)): ?>
+									<?= $this->Html->link("Effacer tout", array("controller" => "messages", "action" => "delete", "all"), array("class" => "button", "id" => "deleteAllNotification")); ?>
+								<?php endif; ?>
+								<?= $this->Html->link("", array("controller" => "messages", "action" => "countNotRead"), array("class" => "hide", "id" => "countNotRead")); ?>
 							</div>
 						</div>
 					</div>
@@ -86,7 +85,7 @@
 							?>
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
 								<li><?= $this->Html->link("Mon compte", array('admin' => false,"controller" => "users", 'action' => "account")); ?></li>
-								<li><?= $this->Html->link("Notifications".(isset($nbNonLu) ? "&nbsp;&nbsp;<span class=\"badge ".($nbNonLu>0 ? "important" : "")."\">".intval($nbNonLu)."</span>" : ""), array('admin' => false,"controller" => "messages", 'action' => "index"), array("escape" => false)); ?></li>
+								<li class="notifBadgeZone"><?= $this->Html->link("Notifications".(isset($nbNonLu) ? "&nbsp;&nbsp;<span class=\"badge ".($nbNonLu>0 ? "important" : "")."\">".intval($nbNonLu)."</span>" : ""), array('admin' => false,"controller" => "messages", 'action' => "index"), array("escape" => false)); ?></li>
 								<li class="divider"></li>
 								<?php if ($userGroup==1): ?>
 									<li class="title">Administration</li>

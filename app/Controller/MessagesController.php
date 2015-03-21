@@ -53,6 +53,26 @@ class MessagesController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
+	/**
+	 * countNotRead method
+	 *
+	 * @return void
+	 */
+	public function countNotRead() {
+		$this->autoRender = false;
+		echo $this->Message->find("count", array("conditions" => array("read" => 0, "user_id" => $this->Auth->user("id"))));
+	}
+	/**
+	 * last method
+	 *
+	 * @return void
+	 */
+	public function last() {
+		$this->layout = "ajax";
+		$dernierMessage = $this->Message->find("all", array("conditions" => array("user_id" => $this->Auth->user("id")), "limit" => 5));
+		$this->set(compact("dernerMessage"));
+	}
+
 	
 }
 
