@@ -21,6 +21,8 @@ class FilmsController extends AppController {
 	 * @return void
 	 */
 	public function index() {
+		$this->set("userMovieNew", $this->Auth->user("movie_new"));
+		
 		$source = $this->Source->find("first", array("conditions" => array("user_id" => $this->Auth->user("id"))));
 		if (!empty($source)) {
 			try {

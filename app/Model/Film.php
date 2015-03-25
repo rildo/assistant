@@ -41,6 +41,9 @@ class Film extends AppModel {
 					$this->hasMany = array(
 						"Stream" => array("className" => "Source".$id["id"]."Streamdetails", "foreignKey" => "idFile", "fields" => array("iVideoWidth"), "conditions" => array("iStreamType"=>0))
 					);
+					$this->hasOne = array(
+						"File" => array("className" => "Source".$id["id"]."Files", "foreignKey" => "idFile", "fields" => array("dateAdded"))
+					);
 				}
 				if (isset($this->movieMapping[$produit])) {
 					$this->virtualFields = $this->movieMapping[$produit];

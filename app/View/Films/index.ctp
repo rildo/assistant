@@ -17,6 +17,9 @@
 					<?php if(!empty($l["Stream"])): ?>
 						<span class="quality"><?= $this->Film->getQualityFromWidth($l["Stream"][0]["iVideoWidth"]); ?></span>
 					<?php endif; ?>
+					<?php if(!empty($l["File"]) && time()-strtotime($l["File"]["dateAdded"])<86400*$userMovieNew): ?>
+						<span class="new">NEW</span>
+					<?php endif; ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

@@ -65,7 +65,7 @@ header .notifications-toggler .notification span {
 /*******************
 	Film
 ********************/
-#film .extension, #film .quality {
+#film .extension, #film .quality, #film .new {
 	text-transform: uppercase;
 	padding:3px;
 	border-radius:3px;
@@ -76,5 +76,9 @@ header .notifications-toggler .notification span {
 }
 #film .quality {
 	background:#007fff;
+	color:#ffffff;
+}
+#film .new {
+	background:#0a0;
 	color:#ffffff;
 }
