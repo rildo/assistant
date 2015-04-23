@@ -67,3 +67,29 @@ div.sub-content {
 .f-right {
 	float: right;
 }
+
+.t-red {
+	color: rgb(255,84,71);
+}
+
+.t-blue {
+	color: rgb(75,119,190);
+}
+
+section {
+	margin-bottom: 15px;
+}
+
+fieldset {
+	border: 1px solid rgb(228,231,236);
+	padding : 10px;
+}
+
+legend {
+	padding: 0px 10px;
+	background-color: #fff;
+}
+
+input {
+	margin: 2px;
+}

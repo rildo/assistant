@@ -25,9 +25,9 @@
 			</div>
 			<div class="u-pull-left">
 				<ul class="quick-section">
-					<li><?php echo $this->Html->link('Films',array('controller' => 'films', 'action' => 'index')); ?></li>
-					<li><?php echo $this->Html->link('Scripts',array('controller' => 'scripts', 'action' => 'index')); ?></li>
-					<li><?php echo $this->Html->link('Jeux',array('controller' => 'games', 'action' => 'index')); ?></li>
+					<li><?php echo $this->Html->link('Films',array('controller' => 'films', 'action' => 'index', 'admin' => FALSE)); ?></li>
+					<li><?php echo $this->Html->link('Scripts',array('controller' => 'scripts', 'action' => 'index', 'admin' => FALSE)); ?></li>
+					<li><?php echo $this->Html->link('Jeux',array('controller' => 'games', 'action' => 'index', 'admin' => FALSE)); ?></li>
 				</ul>
 			</div>
 			<div class="header-quick-nav">
