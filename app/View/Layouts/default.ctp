@@ -9,10 +9,15 @@
 		<?php
 		
 			echo $this->Html->meta('icon');
-	
 			echo $this->Html->css(array('normalize','skeleton','menu','general','content','jsElements','jquery-ui'));
-			echo $this->Html->script(array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init'));
-	
+			$scripts = array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init');
+			
+			// Add the specifics JS files for the current controller
+			if (fileExistsInPath(JS.'components'.DS.$this->params['controller'].'.js')) {
+				$scripts[] = 'components'.DS.$this->params['controller'];
+			}
+			
+			echo $this->Html->script($scripts);
 			echo $this->fetch('meta');
 			echo $this->fetch('css');
 			echo $this->fetch('script');
