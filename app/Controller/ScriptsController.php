@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
  * @property SessionComponent $Session
  */
 class ScriptsController extends AppController {
+    public $uses = array('Script','Trigger', 'ScriptLog');
 	
 	/**
 	 * Components
@@ -205,6 +206,14 @@ class ScriptsController extends AppController {
 		$trigger = new Trigger();
 		$triggerOptions = array('conditions' => array('Trigger.script_id' => $id, 'Trigger.type' => 'script'));
 		$triggers = $trigger->find('all',$triggerOptions);
+		
+		// Get short launch history
+		$options = array(
+			'conditions' => array('ScriptLog.script_' . $this->Script->primaryKey => $id),
+			'order' => array('ScriptLog.start_datetime DESC'),
+			'limit'=> 20
+		);
+		$this->request->data['ScriptLog'] = $this->ScriptLog->find('all', $options);
 		
 		//Completion of common settings
 		// Minutes
