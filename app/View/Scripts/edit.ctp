@@ -146,8 +146,8 @@
 							foreach ($this->request->data['ScriptLog'] as $launch):
 					?>
 						<tr>
-							<td><?php echo __($this->Date->showFrenshDatetime($launch['start_datetime'])); ?></td>
-							<td><?php echo __($this->Date->showFrenshDatetime($launch['end_datetime'])); ?></td>
+							<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['start_datetime'])); ?></td>
+							<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['end_datetime'])); ?></td>
 							<td>1h 45 min 37sec</td>
 						</tr>
 					<?php
