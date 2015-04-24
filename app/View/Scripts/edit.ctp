@@ -6,7 +6,7 @@
 		</span>
 	</h2>
 	<div class="sub-content row">
-		<div class="nine columns">
+		<div class="eight columns">
 			<section>
 				<h5>Commande</h5>
 				<div>
@@ -128,7 +128,7 @@
 			</section>
 		</div>
 		<br />
-		<div class="script-history three columns">
+		<div class="script-history four columns">
 			<h5>Historique</h5>
 			<table>
 				<thead>
