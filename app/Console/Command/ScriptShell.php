@@ -49,9 +49,11 @@ class ScriptShell extends AppShell {
 			'script_id'			=> $trigger['Script']['id'],
 			'trigger_id' 		=> $trigger['Trigger']['id'],
 			'output' 			=> implode('\n',$output),
-			'start_datetime'	=> $startDateTime,
-			'end_datetime' 		=> $endDateTime
+			'start_datetime'	=> $startDateTime->format('H:i:s d/m/Y'),
+			'end_datetime' 		=> $endDateTime->format('H:i:s d/m/Y')
 		);
+		
+		$this->ScriptLog->save($log);
 	}
 	
 	/**
