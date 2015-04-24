@@ -205,7 +205,6 @@ class ScriptsController extends AppController {
 		$trigger = new Trigger();
 		$triggerOptions = array('conditions' => array('Trigger.script_id' => $id, 'Trigger.type' => 'script'));
 		$triggers = $trigger->find('all',$triggerOptions);
-// 		debug($triggers);
 		
 		//Completion of common settings
 		// Minutes

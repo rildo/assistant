@@ -22,6 +22,15 @@ class Trigger extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	/**
+	 * hasMany relation
+	 */
+	public $hasMany = array(
+		'ScriptLog' => array(
+			'className' => 'ScriptLog',
+		)
+	);
 
 	/**
 	 * Validation rules

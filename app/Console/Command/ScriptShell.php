@@ -44,8 +44,6 @@ class ScriptShell extends AppShell {
 		exec ($command, $output);
 		$endDateTime = new DateTime();
 		
-		debug($output);
-		
 		// Save the result into database
 		$log = array(
 			'script_id'			=> $trigger['Script']['id'],

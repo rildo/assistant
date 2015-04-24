@@ -14,11 +14,14 @@ class Script extends AppModel {
 	public $displayField = 'name';
 	
 	/**
-	 * hasMany relations
+	 * hasMany relation
 	 */
 	public $hasMany = array(
 		'Trigger' => array(
 			'className' => 'Trigger',
+		),
+		'ScriptLog' => array(
+			'className' => 'ScriptLog',
 		)
 	);
 

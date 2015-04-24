@@ -130,7 +130,32 @@
 		<br />
 		<div class="script-history three columns">
 			<h5>Historique</h5>
-			Ce script n'a jamais été lancé pour le moment.
+			<table>
+				<thead>
+					<tr>
+						<th>Début</th>
+						<th>Fin</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						if (!empty($this->request->data['ScriptLog'])):
+							foreach ($this->request->data['ScriptLog'] as $launch):
+					?>
+						<tr>
+							<td><?php echo __($this->Date->showFrenshDate($launch['start_datetime'])); ?></td>
+							<td><?php echo __($this->Date->showFrenshDate($launch['end_datetime'])); ?></td>
+							<td>&nbsp;</td>
+						</tr>
+					<?php
+							endforeach;
+						else:
+					?>
+						Ce script n'a jamais été lancé pour le moment.
+					<?php endif; ?>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

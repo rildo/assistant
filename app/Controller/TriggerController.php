@@ -35,6 +35,7 @@ class TriggerController extends AppController {
 			
 			// Related script
 			$options = array('conditions' => array('Script.' . $script->primaryKey => $id));
+			$relatedScript = $script->find('first', $options);
 			
 			// CRON creation
 			// CRON already exists
@@ -50,7 +51,7 @@ class TriggerController extends AppController {
 				// Redirect to the edit page
 				return $this->redirect(array('controller' => 'Scripts', 'action' => 'edit', $id));
 			// Save
-			} elseif ($this->Trigger->save($this->request->data)) {
+			} elseif ($this->addTrigger($relatedScript) && $this->Trigger->save($this->request->data)) {
 				$this->Session->setFlash(__('Le déclencheur a bien été ajouté.'),'notif', array('type' => 'success'));
 				// Redirect to the edit page
 				return $this->redirect(array('controller' => 'Scripts', 'action' => 'edit', $id));
@@ -71,14 +72,14 @@ class TriggerController extends AppController {
 	 * @param array $data
 	 * @param array $script
 	 */
-	private function addTrigger ($data = null, $script = null) {
+	private function addTrigger ($script = null) {
 		try {
 			$cron = $this->request->data['Trigger']['minute'].' '.
 					$this->request->data['Trigger']['hour'].' '.
 					$this->request->data['Trigger']['day'].' '.
 					$this->request->data['Trigger']['month'].' '.
 					$this->request->data['Trigger']['weekday'].' '.
-					$script['Script']['prefix'].' '.$script['Script']['script_location'].' '.$script['Script']['suffix'];
+					'php '.APP_DIR.'Console'.DS.'cake.php script launch '.$a;
 			$cronManager = new CronManager();
 			$cronManager->append_cronjob($cron);
 		} catch (Exception $e) {
