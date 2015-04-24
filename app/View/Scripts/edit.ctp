@@ -3,6 +3,8 @@
 		<?php echo __('Modifier le script : '.$this->Form->value('Script.name')); ?>
 		<span class="action-space">
 			<?php echo $this->Html->link('Liste des scripts',array('controller' => 'scripts', 'action' => 'index', 'admin' => FALSE),array('class' => 'button')); ?>
+			<?php echo $this->Html->link('Historique de lancement',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => 'button')); ?>
+			<?php echo $this->Html->link('Exécuter',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => ' button button-primary')); ?>
 		</span>
 	</h2>
 	<div class="sub-content row">
@@ -129,13 +131,13 @@
 		</div>
 		<br />
 		<div class="script-history four columns">
-			<h5>Historique</h5>
+			<h5>Historique (20 derniers lancements)</h5>
 			<table>
 				<thead>
 					<tr>
 						<th>Début</th>
 						<th>Fin</th>
-						<th>Actions</th>
+						<th>Durée</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -146,7 +148,7 @@
 						<tr>
 							<td><?php echo __($this->Date->showFrenshDatetime($launch['start_datetime'])); ?></td>
 							<td><?php echo __($this->Date->showFrenshDatetime($launch['end_datetime'])); ?></td>
-							<td>&nbsp;</td>
+							<td>1h 45 min 37sec</td>
 						</tr>
 					<?php
 							endforeach;
