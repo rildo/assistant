@@ -13,8 +13,8 @@
 			$scripts = array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init');
 			
 			// Add the specifics JS files for the current controller
-			if (fileExistsInPath(JS.'components'.DS.$this->params['controller'].'.js')) {
-				$scripts[] = 'components'.DS.$this->params['controller'];
+			if (fileExistsInPath(JS.'components'.DS.strtolower($this->params['controller']).'.js')) {
+				$scripts[] = 'components'.DS.strtolower($this->params['controller']);
 			}
 			
 			echo $this->Html->script($scripts);
