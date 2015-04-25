@@ -9,10 +9,15 @@
 		<?php
 		
 			echo $this->Html->meta('icon');
-	
 			echo $this->Html->css(array('normalize','skeleton','menu','general','content','jsElements','jquery-ui'));
-			echo $this->Html->script(array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init'));
-	
+			$scripts = array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init');
+			
+			// Add the specifics JS files for the current controller
+			if (fileExistsInPath(JS.'components'.DS.strtolower($this->params['controller']).'.js')) {
+				$scripts[] = 'components'.DS.strtolower($this->params['controller']);
+			}
+			
+			echo $this->Html->script($scripts);
 			echo $this->fetch('meta');
 			echo $this->fetch('css');
 			echo $this->fetch('script');
@@ -25,9 +30,9 @@
 			</div>
 			<div class="u-pull-left">
 				<ul class="quick-section">
-					<li><?php echo $this->Html->link('Films',array('controller' => 'films', 'action' => 'index')); ?></li>
-					<li><?php echo $this->Html->link('Scripts',array('controller' => 'scripts', 'action' => 'index')); ?></li>
-					<li><?php echo $this->Html->link('Jeux',array('controller' => 'games', 'action' => 'index')); ?></li>
+					<li><?php echo $this->Html->link('Films',array('controller' => 'films', 'action' => 'index', 'admin' => FALSE)); ?></li>
+					<li><?php echo $this->Html->link('Scripts',array('controller' => 'scripts', 'action' => 'index', 'admin' => FALSE)); ?></li>
+					<li><?php echo $this->Html->link('Jeux',array('controller' => 'games', 'action' => 'index', 'admin' => FALSE)); ?></li>
 				</ul>
 			</div>
 			<div class="header-quick-nav">

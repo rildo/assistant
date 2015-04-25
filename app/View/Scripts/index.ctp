@@ -58,7 +58,7 @@
 									)),
 									array(
 										'action' => 'edit',
-										'admin' => TRUE,
+										'admin' => FALSE,
 										$script['Script']['id']
 									),
 									array(
