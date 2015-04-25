@@ -15,7 +15,7 @@ html {
 
 .bg-blue, 
 header .notifications-toggler .notification.bg-blue { background: rgba(15,160,206,0.3); }
-
+.hide { display: none;}
 
 
 /*******************

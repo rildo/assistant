@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
  */
 class FilmsController extends AppController {
 
+	public $paginate = array("limit" => 15);
 	/**
 	 * Model
 	 * 
@@ -26,8 +27,18 @@ class FilmsController extends AppController {
 		$source = $this->Source->find("first", array("conditions" => array("user_id" => $this->Auth->user("id"))));
 		if (!empty($source)) {
 			try {
-				$this->loadModel("Film", $source["Source"]["id"]);
-				$lists = $this->Film->find("all");
+				$id = $source["Source"]["id"];
+				$pg = (!empty($this->request->params["named"]) ? $this->request->params["named"]["page"] : 1);
+				$lists = Cache::read("film".$id."_".$pg);
+				if (empty($lists)) {
+					$this->loadModel("Film", $id);
+					$lists = $this->paginate("Film");
+					Cache::write("paging".$id."_".$pg, $this->request->params["paging"]);
+					Cache::write("film".$id."_".$pg, $lists);
+				}
+				else {
+					$this->request->params["paging"] = Cache::read("paging".$id."_".$pg);
+				}
 				$this->set(compact("lists"));
 			}
 			catch (Exception $e) {

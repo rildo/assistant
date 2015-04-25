@@ -1,6 +1,10 @@
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 
+	/**
+	 * Notification
+	 */
+
 	// Quick Notification
 	$("#deleteAllNotification").on("click", function (e) {
 		e.preventDefault();
@@ -48,4 +52,27 @@ $(function () {
 	setInterval(getCountNotRead, 30000);
 	// Verification rapide au bout de deux secondes
 	setTimeout(getCountNotRead, 2000);
+	
+	
+	
+	/**
+	 * Film
+	 */
+	
+	//Recharement au scroll
+	var check = false;
+	$(window).scroll(function() {
+		if ($("#film").length>0 && $("#nextFilm").length>0) {
+			if (!check && $("body").scrollTop()+$(window).height()> $(document).height()-100) {
+				check = true;
+				var url = $("#nextFilm").attr("href");
+				console.log(url);
+				$.get(url, function(msg) {
+					$("#nextFilm").parent().remove();
+					$("#film").children("tbody").append(msg);
+					check=false;
+				});
+			}
+		}
+	});
 });

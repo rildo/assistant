@@ -56,6 +56,11 @@ class AppController extends Controller {
 		$this->set("userName", $this->Auth->user("name"));
 		$this->set("userGroup", $this->Auth->user("group_id"));
 		
+		// Layout AJax
+		if ($this->request->is("ajax")) {
+			$this->layout = "ajax";
+		}
+
 		// Gestion des notifications
 		$nbNonLu = $this->Message->find("count", array("conditions" => array("read" => 0,"user_id" => $this->Auth->user("id"))));
 		$dernierMessage = $this->Message->find("all", array("conditions" => array("user_id" => $this->Auth->user("id")), "limit" => 5));

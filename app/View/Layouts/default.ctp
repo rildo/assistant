@@ -85,7 +85,7 @@
 							?>
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
 								<li><?= $this->Html->link("Mon compte", array('admin' => false,"controller" => "users", 'action' => "account")); ?></li>
-								<li class="notifBadgeZone"><?= $this->Html->link("Notifications".(isset($nbNonLu) ? "&nbsp;&nbsp;<span class=\"badge ".($nbNonLu>0 ? "important" : "")."\">".intval($nbNonLu)."</span>" : ""), array('admin' => false,"controller" => "messages", 'action' => "index"), array("escape" => false)); ?></li>
+								<li><?= $this->Html->link("Notifications".(isset($nbNonLu) ? "&nbsp;&nbsp;<span class=\"badge ".($nbNonLu>0 ? "important" : "")."\">".intval($nbNonLu)."</span>" : ""), array('admin' => false,"controller" => "messages", 'action' => "index"), array("escape" => false, "class"=> "notifBadgeZone")); ?></li>
 								<li class="divider"></li>
 								<?php if ($userGroup==1): ?>
 									<li class="title">Administration</li>
