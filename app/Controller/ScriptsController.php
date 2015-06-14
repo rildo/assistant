@@ -262,11 +262,62 @@ class ScriptsController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 	
+	/**
+	 * launch method
+	 * 
+	 * @return void
+	 */
+	public function launch () {
+		$script_id = base64_decode($this->request->params['pass'][0]);
+		$result = $this->script_launcher($script_id);
+		if (empty($result)) {
+			$this->Session->setFlash(__('Le script et été lancé avec succès.'),'notif', array('type' => 'success'));
+		} else {
+			$this->Session->setFlash(__('Le script n\'a pas pu être lancé.'),'notif', array('type' => 'success'));
+		}
+		return $this->redirect($this->referer());
+	}
+	
 	private function compose_script ($script) {
 		$infos = pathinfo($script);
 		return  $script = array(
 			'name' 				=> basename($script, '.'.$infos['extension']),
 			'script_location' 	=> $script,
 		);
+	}
+	
+	/**
+	 * Launch scripts
+	 * 
+	 * @param integer $id
+	 * @return string
+	 */
+	private function script_launcher ($id) {
+		// Find the script
+		$options = array('conditions' => array('Trigger.' . $this->Trigger->primaryKey => $id), 'recursive' => 1);
+		$trigger = $this->Trigger->find('first', $options);
+		
+		if (empty($trigger)) {
+			return 'Script inconnu.';
+		}
+		
+		// Set the command to execute
+		$command = $trigger['Script']['prefix'].' '.$trigger['Script']['script_location'].' '.$trigger['Script']['suffix'];
+		
+		// Start execution
+		$startDateTime = new DateTime();
+		exec ($command, $output);
+		$endDateTime = new DateTime();
+		
+		// Save the result into database
+		$log = array(
+			'script_id'			=> $trigger['Script']['id'],
+			'trigger_id' 		=> $trigger['Trigger']['id'],
+			'output' 			=> implode('\n',$output),
+			'start_datetime'	=> $startDateTime->format('Y-m-d H:i:s'),
+			'end_datetime' 		=> $endDateTime->format('Y-m-d H:i:s')
+		);
+		
+		$this->ScriptLog->save($log);
 	}
 }

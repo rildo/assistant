@@ -79,7 +79,7 @@ class TriggerController extends AppController {
 					$this->request->data['Trigger']['day'].' '.
 					$this->request->data['Trigger']['month'].' '.
 					$this->request->data['Trigger']['weekday'].' '.
-					'php '.APP_DIR.'Console'.DS.'cake.php script launch '.$a;
+					'php '.APP_DIR.'Console'.DS.'cake.php script launch ';
 			$cronManager = new CronManager();
 			$cronManager->append_cronjob($cron);
 		} catch (Exception $e) {

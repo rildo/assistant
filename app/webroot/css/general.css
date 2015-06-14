@@ -15,9 +15,7 @@ html {
 
 .bg-blue, 
 header .notifications-toggler .notification.bg-blue { background: rgba(15,160,206,0.3); }
-<<<<<<< HEAD
 .hide { display: none;}
-=======
 
 label,
 legend {
@@ -28,7 +26,6 @@ legend {
 .input-120 {
 	width: 120px;
 }
->>>>>>> origin/master
 
 .input-300 {
 	width: 300px;

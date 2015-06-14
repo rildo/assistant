@@ -4,7 +4,7 @@
 		<span class="action-space">
 			<?php echo $this->Html->link('Liste des scripts',array('controller' => 'scripts', 'action' => 'index', 'admin' => FALSE),array('class' => 'button')); ?>
 			<?php echo $this->Html->link('Historique de lancement',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => 'button')); ?>
-			<?php echo $this->Html->link('Exécuter',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => ' button button-primary')); ?>
+			<?php echo $this->Html->link('Exécuter',array('controller' => 'scripts', 'action' => 'launch', 'admin' => FALSE, base64_encode($this->Form->value('Script.id'))),array('class' => ' button button-primary')); ?>
 		</span>
 	</h2>
 	<div class="sub-content row">
@@ -132,32 +132,36 @@
 		<br />
 		<div class="script-history four columns">
 			<h5>Historique (20 derniers lancements)</h5>
-			<table>
-				<thead>
-					<tr>
-						<th>Début</th>
-						<th>Fin</th>
-						<th>Durée</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						if (!empty($this->request->data['ScriptLog'])):
-							foreach ($this->request->data['ScriptLog'] as $launch):
-					?>
+			<?php
+				if (!empty($this->request->data['ScriptLog'])):
+			?>
+				<table>
+					<thead>
 						<tr>
-							<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['start_datetime'])); ?></td>
-							<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['end_datetime'])); ?></td>
-							<td>1h 45 min 37sec</td>
+							<th>Début</th>
+							<th>Fin</th>
+							<th>Durée</th>
 						</tr>
-					<?php
-							endforeach;
-						else:
-					?>
-						Ce script n'a jamais été lancé pour le moment.
-					<?php endif; ?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+				<?php
+						foreach ($this->request->data['ScriptLog'] as $launch):
+				?>
+					<tr>
+						<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['start_datetime'])); ?></td>
+						<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['end_datetime'])); ?></td>
+						<td>1h 45 min 37sec</td>
+					</tr>
+				<?php
+					endforeach;
+				?>
+					</tbody>
+				</table>
+			<?php
+				else:
+			?>
+				Ce script n'a jamais été lancé pour le moment.
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

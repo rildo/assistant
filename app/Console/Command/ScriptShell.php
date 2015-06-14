@@ -26,7 +26,6 @@ class ScriptShell extends AppShell {
 			$id = $this->args[0];
 		}
 		
-		
 		// Find the script
 		$options = array('conditions' => array('Trigger.' . $this->Trigger->primaryKey => $id), 'recursive' => 1);
 		$trigger = $this->Trigger->find('first', $options);
