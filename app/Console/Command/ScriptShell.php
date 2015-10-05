@@ -6,43 +6,43 @@
  * @author rildo
  */
 class ScriptShell extends AppShell {
-    public $uses = array('Trigger', 'ScriptLog');
-    
+    public $uses = array('Trigger', 'Script', 'ScriptLog');
+
 	public function main() {
 		$this->out('Please use one of these functions :');
-		$this->out('--- launch(scriptId,triggerId) : launch the script related to the given id');
+		$this->out('--- launch(triggerId) : launch the script related to the given trigger id');
 		$this->out('--- clean_crontab() : Clean the crontab in order to be synchronised with the database');
 	}
-	
+
 	/**
 	 * Script launcher. Use it only with triggers
 	 */
 	public function launch () {
 		// Check the input
 		if (empty($this->args) || !is_numeric($this->args[0])) {
-			$this->out('Please give the script id by argument');
+			$this->out('Please give the trigger id by argument');
 			exit(1);
 		} else {
 			$id = $this->args[0];
 		}
-		
+
 		// Find the script
 		$options = array('conditions' => array('Trigger.' . $this->Trigger->primaryKey => $id), 'recursive' => 1);
 		$trigger = $this->Trigger->find('first', $options);
-		
+
 		if (empty($trigger)) {
 			throw new Exception( "Unknown script.");
 			exit(1);
 		}
-		
+
 		// Set the command to execute
 		$command = $trigger['Script']['prefix'].' '.$trigger['Script']['script_location'].' '.$trigger['Script']['suffix'];
-		
+
 		// Start execution
 		$startDateTime = new DateTime();
 		exec ($command, $output);
 		$endDateTime = new DateTime();
-		
+
 		// Save the result into database
 		$log = array(
 			'script_id'			=> $trigger['Script']['id'],
@@ -51,10 +51,51 @@ class ScriptShell extends AppShell {
 			'start_datetime'	=> $startDateTime->format('Y-m-d H:i:s'),
 			'end_datetime' 		=> $endDateTime->format('Y-m-d H:i:s')
 		);
-		
+
 		$this->ScriptLog->save($log);
 	}
-	
+
+	/**
+	 * Script launcher. Use it only manually
+	 */
+	public function manual_launch () {
+		// Check the input
+		if (empty($this->args) || !is_numeric($this->args[0])) {
+			$this->out('Please give the script id by argument');
+			exit(1);
+		} else {
+			$id = $this->args[0];
+		}
+
+		// Find the script
+		$options = array('conditions' => array('Script.' . $this->Script->primaryKey => $id), 'recursive' => 1);
+		$script = $this->Script->find('first', $options);
+
+		if (empty($script)) {
+			throw new Exception( "Unknown script.");
+			exit(1);
+		}
+
+		// Set the command to execute
+		$command = $script['Script']['prefix'].' '.$script['Script']['script_location'].' '.$script['Script']['suffix'];
+
+		// Start execution
+		$startDateTime = new DateTime();
+		exec ($command, $output);
+		$endDateTime = new DateTime();
+
+		// Save the result into database
+		$log = array(
+			'script_id'			=> $script['Script']['id'],
+			'trigger_id' 		=> null,
+			'output' 			=> implode('\n',$output),
+			'start_datetime'	=> $startDateTime->format('Y-m-d H:i:s'),
+			'end_datetime' 		=> $endDateTime->format('Y-m-d H:i:s')
+		);
+
+		$this->ScriptLog->save($log);
+	}
+
 	/**
 	 * Clean the crontab in order to be synchronised with the database
 	 */

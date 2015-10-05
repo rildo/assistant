@@ -3,7 +3,7 @@
 		<?php echo __('Modifier le script : '.$this->Form->value('Script.name')); ?>
 		<span class="action-space">
 			<?php echo $this->Html->link('Liste des scripts',array('controller' => 'scripts', 'action' => 'index', 'admin' => FALSE),array('class' => 'button')); ?>
-			<?php echo $this->Html->link('Historique de lancement',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => 'button')); ?>
+			<?php if (!empty($this->request->data['ScriptLog']) && 21 < count($this->request->data['ScriptLog'])) { echo $this->Html->link('Historique de lancement',array('controller' => 'scripts', 'action' => 'history', 'admin' => FALSE),array('class' => 'button')); } ?>
 			<?php echo $this->Html->link('Exécuter',array('controller' => 'scripts', 'action' => 'launch', 'admin' => FALSE, base64_encode($this->Form->value('Script.id'))),array('class' => ' button button-primary')); ?>
 		</span>
 	</h2>
@@ -141,16 +141,18 @@
 							<th>Début</th>
 							<th>Fin</th>
 							<th>Durée</th>
+							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
 				<?php
 						foreach ($this->request->data['ScriptLog'] as $launch):
 				?>
-					<tr>
+					<tr class="launch-history-table">
 						<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['start_datetime'])); ?></td>
 						<td><?php echo __($this->Date->showFrenshDatetime($launch['ScriptLog']['end_datetime'])); ?></td>
-						<td>1h 45 min 37sec</td>
+						<td><?php echo __($this->Date->dateDiff($launch['ScriptLog']['start_datetime'], $launch['ScriptLog']['end_datetime'])) ?></td>
+						<td><a href="#" data-toggle="modal" data-target="#scriptLog">a</a></td>
 					</tr>
 				<?php
 					endforeach;
@@ -164,4 +166,22 @@
 			<?php endif; ?>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="scriptLog" tabindex="-1" role="dialog" aria-labelledby="scriptLog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="scriptLogLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

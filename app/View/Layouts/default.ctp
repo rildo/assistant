@@ -10,7 +10,7 @@
 		
 			echo $this->Html->meta('icon');
 			echo $this->Html->css(array('normalize','skeleton','menu','general','content','jsElements','jquery-ui'));
-			$scripts = array('jquery-2.1.3.min','jquery-ui','bootstrap.min','init');
+			$scripts = array('jquery-2.1.4.min','jquery-ui','bootstrap.min','init');
 			
 			// Add the specifics JS files for the current controller
 			if (fileExistsInPath(JS.'components'.DS.strtolower($this->params['controller']).'.js')) {

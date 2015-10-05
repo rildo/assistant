@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  */
 class ScriptsController extends AppController {
     public $uses = array('Script','Trigger', 'ScriptLog');
-	
+
 	/**
 	 * Components
 	 *
@@ -26,7 +26,7 @@ class ScriptsController extends AppController {
 		$this->Script->recursive = 1;
 		$this->set('scripts', $this->Paginator->paginate());
 	}
-	
+
 	private $choiceMinutes = array(
 		'-- Valeurs prédéfinies --',
 		':*' 		=> 'Toutes les minutes (*)',
@@ -36,7 +36,7 @@ class ScriptsController extends AppController {
 		':*/30' 	=> 'Toutes les 30 minutes (*/30)',
 		'-- Minutes --'
 	);
-	
+
 	private $choiceHours = array(
 		'-- Valeurs prédéfinies --',
 		':*' 	=> 'Toutes les heures (*)',
@@ -46,7 +46,7 @@ class ScriptsController extends AppController {
 		':0,12' 	=> 'Deux fois par jour (0,12)',
 		'-- Minutes --'
 	);
-	
+
 	private $choiceDays = array(
 		'-- Valeurs prédéfinies --',
 		':*' 	=> 'Tous jours (*)',
@@ -54,7 +54,7 @@ class ScriptsController extends AppController {
 		':*/3' 	=> 'Tous les 3 jours (*/3)',
 		'-- Jours --'
 	);
-	
+
 	private $choiceMonths = array(
 		'-- Valeurs prédéfinies --',
 		':*' 		=> 'Tous mois (*)',
@@ -75,7 +75,7 @@ class ScriptsController extends AppController {
 		':11'		=> 'Novembre (11)',
 		':12'		=> 'Décembre (12)'
 	);
-	
+
 	private $choiceWeekday = array(
 		'-- Valeurs prédéfinies --',
 		':*'	=> 'Tous les jours de la semaine (*)',
@@ -90,7 +90,7 @@ class ScriptsController extends AppController {
 		':6' 	=> 'Samedi (6)',
 		':0' 	=> 'Dimanche (0)'
 	);
-	
+
 	private $commonSettings = array(
 		'-- Valeurs prédéfinies --',
 		'* * * * *' 		=> 'Toutes les minutes (* * * * *)',
@@ -173,7 +173,7 @@ class ScriptsController extends AppController {
 		} else {
 			$step = 1;
 		}
-		
+
 		$this->set(compact('step'));
 		$this->set(compact('scripts'));
 	}
@@ -206,7 +206,7 @@ class ScriptsController extends AppController {
 		$trigger = new Trigger();
 		$triggerOptions = array('conditions' => array('Trigger.script_id' => $id, 'Trigger.type' => 'script'));
 		$triggers = $trigger->find('all',$triggerOptions);
-		
+
 		// Get short launch history
 		$options = array(
 			'conditions' => array('ScriptLog.script_' . $this->Script->primaryKey => $id),
@@ -214,7 +214,7 @@ class ScriptsController extends AppController {
 			'limit'=> 20
 		);
 		$this->request->data['ScriptLog'] = $this->ScriptLog->find('all', $options);
-		
+
 		//Completion of common settings
 		// Minutes
   		$choiceMinutes = $this->choiceMinutes;
@@ -261,10 +261,10 @@ class ScriptsController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-	
+
 	/**
 	 * launch method
-	 * 
+	 *
 	 * @return void
 	 */
 	public function launch () {
@@ -273,11 +273,11 @@ class ScriptsController extends AppController {
 		if (empty($result)) {
 			$this->Session->setFlash(__('Le script et été lancé avec succès.'),'notif', array('type' => 'success'));
 		} else {
-			$this->Session->setFlash(__('Le script n\'a pas pu être lancé.'),'notif', array('type' => 'success'));
+			$this->Session->setFlash(__('Le script n\'a pas pu être lancé : '.$result),'notif', array('type' => 'error'));
 		}
 		return $this->redirect($this->referer());
 	}
-	
+
 	private function compose_script ($script) {
 		$infos = pathinfo($script);
 		return  $script = array(
@@ -285,39 +285,30 @@ class ScriptsController extends AppController {
 			'script_location' 	=> $script,
 		);
 	}
-	
+
 	/**
 	 * Launch scripts
-	 * 
+	 *
 	 * @param integer $id
 	 * @return string
 	 */
 	private function script_launcher ($id) {
+    $scriptLauncherDir = __DIR__.'/../Console/';
+
 		// Find the script
-		$options = array('conditions' => array('Trigger.' . $this->Trigger->primaryKey => $id), 'recursive' => 1);
-		$trigger = $this->Trigger->find('first', $options);
-		
-		if (empty($trigger)) {
-			return 'Script inconnu.';
+		$options = array('conditions' => array('Script.' . $this->Script->primaryKey => $id), 'recursive' => 1);
+		$script = $this->Script->find('first', $options);
+
+		if (empty($script)) {
+			return 'script inconnu.';
 		}
-		
+
 		// Set the command to execute
-		$command = $trigger['Script']['prefix'].' '.$trigger['Script']['script_location'].' '.$trigger['Script']['suffix'];
-		
+		$command = $script['Script']['id'];
+
+    // var_dump('cd '.$scriptLauncherDir.' && php '.$scriptLauncherDir.'cake.php script manual_launch '.$script['Script']['id'].' &> /dev/null &');die();
+
 		// Start execution
-		$startDateTime = new DateTime();
-		exec ($command, $output);
-		$endDateTime = new DateTime();
-		
-		// Save the result into database
-		$log = array(
-			'script_id'			=> $trigger['Script']['id'],
-			'trigger_id' 		=> $trigger['Trigger']['id'],
-			'output' 			=> implode('\n',$output),
-			'start_datetime'	=> $startDateTime->format('Y-m-d H:i:s'),
-			'end_datetime' 		=> $endDateTime->format('Y-m-d H:i:s')
-		);
-		
-		$this->ScriptLog->save($log);
+		exec ('cd '.$scriptLauncherDir.' && php '.$scriptLauncherDir.'cake.php script manual_launch '.$script['Script']['id'].' &> /dev/null &', $output);
 	}
 }

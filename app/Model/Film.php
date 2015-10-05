@@ -34,7 +34,7 @@ class Film extends AppModel {
 				$config["password"] = $cryptComponent->decrypt($config["password"]);
 				ConnectionManager::create($config["database"], $config);
 				$this->useDbConfig = $config["database"];
-
+				
 				$produit = $source["Source"]["produit_id"];
 				if ($produit==1) {
 					$this->primaryKey = "idFile";
@@ -42,7 +42,7 @@ class Film extends AppModel {
 						"Stream" => array("className" => "Source".$id["id"]."Streamdetails", "foreignKey" => "idFile", "fields" => array("iVideoWidth"), "conditions" => array("iStreamType"=>0))
 					);
 					$this->hasOne = array(
-						"File" => array("className" => "Source".$id["id"]."Files", "foreignKey" => "idFile", "fields" => array("dateAdded"))
+						"File" => array("className" => "Source".$id["id"]."Files", "order" => $this->movieMapping[$produit]["nom"], "foreignKey" => "idFile", "fields" => array("dateAdded"))
 					);
 				}
 				if (isset($this->movieMapping[$produit])) {

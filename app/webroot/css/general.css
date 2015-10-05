@@ -13,7 +13,7 @@ html {
 .erreur { font-weight: bold; color:#9E2424; }
 .bg-white { background: #ffffff; }
 
-.bg-blue, 
+.bg-blue,
 header .notifications-toggler .notification.bg-blue { background: rgba(15,160,206,0.3); }
 .hide { display: none;}
 
@@ -33,6 +33,11 @@ legend {
 
 .input-424 {
 	width: 424px;
+}
+
+.search {
+	width:200px;
+	font-size:14px;
 }
 
 /*******************
@@ -78,7 +83,6 @@ header .notifications-toggler .notification span {
 	color:#666666;
 }
 
-
 /*******************
 	Film
 ********************/
@@ -98,4 +102,11 @@ header .notifications-toggler .notification span {
 #film .new {
 	background:#0a0;
 	color:#ffffff;
+}
+
+/*******************
+	Script
+********************/
+.launch-history-table {
+	font-size: 12px;
 }

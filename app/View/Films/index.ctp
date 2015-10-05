@@ -1,5 +1,16 @@
 <?php if (!$this->request->is("ajax")): ?>
-<h1>Films</h1>
+<h2>
+	Films
+	<div class="action-space">
+		<?= $this->Form->create("Recherche"); ?>
+			<?= $this->Html->link("HD", "#", ["class" => "button filter", "id" => "filter_hd"]); ?>
+			<?= $this->Html->link("SD", "#", ["class" => "button filter", "id" => "filter_sd"]); ?>
+			<?= $this->Html->link("NEW", "#", ["class" => "button filter", "id" => "filter_new"]); ?>
+			<?= $this->Form->input("recherche", ["label" => false, "div" => false, "class" => "search", "placeholder" => "Rechercher"]); ?>
+		<?= $this->Form->end(); ?>
+	</div>
+</h2>
+
 
 <div class="sub-content">
 	<table id="film"  class="u-full-width">

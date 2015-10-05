@@ -14,7 +14,7 @@ class UsersController extends AppController {
 	 * @var array
 	 */
 	public $components = array('Paginator');
-	
+
 	/**
 	 * Paginator settings
 	 */
@@ -24,8 +24,8 @@ class UsersController extends AppController {
 			'lower(User.name)' => 'asc'
 		)
 	);
-	
-	
+
+
 	/**
 	 * login method
 	 *
@@ -41,9 +41,9 @@ class UsersController extends AppController {
 			else {
 				$this->Session->setFlash("Knock knock knock Penny", 'default', array("class" => "erreur"));
 			}
-			
+
 		}
-		
+
 	}
 	/**
 	 * logout method
@@ -54,12 +54,12 @@ class UsersController extends AppController {
 		$this->Auth->logout();
 		$this->redirect($this->Auth->logoutRedirect);
 	}
-	
-	
+
+
 	public function account() {
-		
+
 	}
-	
+
 
 	/**
 	 * index method

@@ -8,7 +8,7 @@ App::uses('AppController', 'Controller');
  */
 class FilmsController extends AppController {
 
-	public $paginate = array("limit" => 15);
+	public $paginate = array("limit" => 50);
 	/**
 	 * Model
 	 * 
@@ -28,16 +28,22 @@ class FilmsController extends AppController {
 		if (!empty($source)) {
 			try {
 				$id = $source["Source"]["id"];
-				$pg = (!empty($this->request->params["named"]) ? $this->request->params["named"]["page"] : 1);
-				$lists = Cache::read("film".$id."_".$pg);
-				if (empty($lists)) {
+				if ($this->request->is("post")) {
 					$this->loadModel("Film", $id);
-					$lists = $this->paginate("Film");
-					Cache::write("paging".$id."_".$pg, $this->request->params["paging"]);
-					Cache::write("film".$id."_".$pg, $lists);
+					$lists = $this->Film->find("all", ["conditions" => ["nom LIKE" => "%".$this->request->data["Recherche"]["recherche"]."%"]]);
 				}
 				else {
-					$this->request->params["paging"] = Cache::read("paging".$id."_".$pg);
+					$pg = (!empty($this->request->params["named"]) ? $this->request->params["named"]["page"] : 1);
+					$lists = Cache::read("film".$id."_".$pg);
+					if (empty($lists)) {
+						$this->loadModel("Film", $id);
+						$lists = $this->paginate("Film");
+						Cache::write("paging".$id."_".$pg, $this->request->params["paging"]);
+						Cache::write("film".$id."_".$pg, $lists);
+					}
+					else {
+						$this->request->params["paging"] = Cache::read("paging".$id."_".$pg);
+					}
 				}
 				$this->set(compact("lists"));
 			}
